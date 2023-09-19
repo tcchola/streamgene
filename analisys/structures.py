@@ -57,7 +57,7 @@ rndDNAseq = ''.join([random.choice(Nucleotides)
                      for nucleotide in range(50)])
 
 def validateSequence(dna_seq):
-    """Make sure that the sequence contains a only ACGT"""
+    """Make sure that the sequence contains a only ATCG"""
     sequence = dna_seq.upper()
     for nucleotide in sequence:
         if nucleotide not in Nucleotides:
@@ -89,6 +89,9 @@ def calculateGC(dna_seq):
     """Calculates the GC content of the given sequence"""
     return round((dna_seq.count('G') + dna_seq.count('C')) / len(dna_seq) * 100, 5)
 
+def calculateATGCratio(dna_seq):
+    """Calculates the AT/GC ratio of the given sequence"""
+    return round((dna_seq.count('A') + dna_seq.count('T')) / (dna_seq.count('G') + dna_seq.count('C')), 5)
 
 def codonFrequency(dna_seq, aminoacid):
     """Returns the usage frequency of the codons"""

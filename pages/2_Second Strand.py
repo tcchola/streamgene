@@ -1,29 +1,50 @@
 from io import StringIO
 import streamlit as st
-import pandas as pd
-import altair as alt
 from analisys.structures import *
+import biotite.sequence as seq
 
 st.set_page_config(
     page_icon="🧬",
-    page_title="StreamGene",
+    page_title="StreamGene - Second Strand",
     layout="centered"
 )
 
 ########## INPUT FILED ##########
-st.header("Enter DNA Sequence")
+st.markdown("""
+            # Get DNA Complement Strand
+            ***
+""")
 
-
-sequence_input = ""
-sequence = st.text_area("5' - 3' DNA Strand", sequence_input, height = 250)
+sequence_input = ">Name\n"
+sequence = st.text_area("Enter 5' - 3' DNA Strand", sequence_input, height = 250)
 sequence = sequence.splitlines()
 sequence = sequence[1:]
 sequence = ''.join(sequence)
 
+with st.expander("What is a reverse complement strand?"):
+    st.info("""
+            In genetics, complementary DNA (cDNA) is DNA synthesized from a single-stranded RNA 
+            (e.g., messenger RNA (mRNA) or microRNA (miRNA)) template in a reaction catalyzed by 
+            the enzyme reverse transcriptase. cDNA is often used to express a specific protein 
+            in a cell that does not normally express that protein (i.e., heterologous expression), 
+            or to sequence or quantify mRNA molecules using DNA based methods (qPCR, RNA-seq). 
+            cDNA that codes for a specific protein can be transferred to a recipient cell for expression, 
+            often bacterial or yeast expression systems. cDNA is also generated to analyze transcriptomic 
+            profiles in bulk tissue, single cells, or single nuclei in assays such as microarrays, qPCR, and RNA-seq.
+    """)
+    st.image("./assets/reverse_strand.png")
+
 st.write("***")
 
-st.write(f'Sequence Length: {len(validateSequence(sequence))}')
+st.write(f'Sequence Length: {len(sequence)}')
 
-reverse_strand = reverseComplement(sequence)
-st.header("3' - 5' Complement DNA Strand")
-st.subheader(reverse_strand)
+st.info("If you encounter the 'KeyError' it means either the sequence contains unknows nucleotides labeled as 'N' or you have entered an invalid sequence. ⚠️")
+
+reverse_strand = seq.NucleotideSequence(sequence).reverse().complement()
+
+st.markdown("""
+            ## 3' - 5' DNA Strand
+""")
+            
+st.write(reverse_strand)
+

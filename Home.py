@@ -5,63 +5,61 @@ from PIL import Image
 
 st.set_page_config(
     page_icon="🦠",
-    page_title="StreamGene",
-    layout="centered"
+    page_title="StreamGene - Welcome",
+    layout="wide"
 )
 
 ########## APP DESCRIPTION ##########
-st.write("""
-         # Welcome to StreamGene 🧬
-         The all-in-one web application for analisys of genetic code.
-         ***
-""")
+st.markdown('''
+            # Welcome to StreamGene 🦠
+            ### The all-in-one web application for analisys of genetic code.
+            
+            ***
+                    
+            # Q&A Section
 
-st.header("Q&A Section")
+            ## 1. How do I find the number of ACTGs? #️⃣
+            Take a DNA sequence from any online library and copy it into the input box on the 'Nucleotide Frequency' page  
+            to find out the exact number of nucleotides in your sequence.
 
-st.subheader("1. How do I find the number of ACTGs?")
-st.write("""
-         Take a DNA sequence from any online library and copy it into the input box 
-         on the 'Nucleotide Frequency' page to find out the exact number of nucleotides in your sequence.
-""")
+            ## 2. How can I find my reverse complemet strand? ⛓️
+            Head to the 'Second Strand' page and copy your 5' - 3' strand into the input box.  
+            As a result you will get the 3' - 5' complement strand.
 
-st.subheader("2. How do I get RNA strand from DNA?")
-st.write("""
-         Go to the 'Transcribe' page on the side menu and copy your DNA sequence 
-         into the input box. This will show you the corresponding RNA strand.
-""")
+            ## 3. How sticky are my strand ends? 🔗
+            The more Gs and Cs a sequence has the stickier it is. We call this GC content. By going to  
+            the 'GC Content' page you can copy your sequence into the input box and find your GC content in percentage [%].
 
-st.subheader("3. How can I know what proteins my strand can make?")
-st.write("""
-         You can head over to the 'Translate to protein' page on the side menu and 
-         copy your RNA strand into the input box. You will be shown all possible proteins from the sequence.
-""")
+            ## 4. How do I get RNA strand from DNA? 🧬
+            Go to the 'Transcribe' page on the side menu and copy your DNA sequence into the input box.  
+            This will show you the corresponding RNA strand.
 
-st.subheader("4. How can I get the complement strand of my DNA?")
-st.write("""
-         Go to the 'Second Strand' page on the side menu and copy your DNA sequence 
-         into the input box. This will give you your complement strand.
-""")
+            ## 5. How can I know what proteins my strand can make? 💪
+            You can head over to the 'Translate to protein' page on the side menu and copy your RNA strand  
+            into the input box. You will be shown all possible proteins from the sequence.
 
-st.subheader("5. How sticky are my strand ends?")
-st.write("""
-         The more Gs and Cs a sequence has the stickier it is. We call this GC content. 
-         By going to the 'GC Content' page you can copy your sequence into the input box 
-         and find your GC content in percentage [%].
-""")
+            ## 6. Why am I getting inaccurate results? ❌
+            The app automaticaly skips the first line of the input box (index 0). So when pasting your  
+            sequence make sure it looks something like this:\n
+            ```
+                >Name_of_organism_
+                ACTGACTGACTGACTGACTGACTGACTG
+                GTCAGTCAGTCAGTCA...
+            ```
 
-st.subheader("6. Why am I getting inaccurate results?")
-st.write("""
-         The app automaticaly skips the first line of the input box (or index 0). 
-         So when pasting your sequence make sure it looks something like this:\n
-         >Name_of_organism_[...]\n
-         >>ACTGACTGACTG...
-""")
+            ## 7. How can I visualize my proteins/other molecules? ⚛
+            After getting the proteins from your RNA look up if there is a chemical structure file of your protein online.  
+            The strucure should be a .xyz file. Open it in the '3D Molecules' page.  
+            You can adjust the 3D model's settings on the toolbar in the sidemenu.
 
-st.write("***")
+            ## 8. Can I predict how my protein will fold? ➰
+            Yes. Head over to the 'Predict Protein Structure' page and input the protein you transcribed.  
+            The app will generate a 3D model along with the accuracy score of the prediction.
 
-st.header("About the app")
+            ***
 
-st.subheader("""
-             This app was made using the Python web framework 'streamlit'. This app is completely free and open source. You can visit my GitHub repository here\n
-""")
-st.write("https://github.com/tcchola/streamgene ")
+            # About the app 🧩
+            ### This app was made using the Python web framework 'streamlit'. 🐍
+            ### This app is published under the MIT open source license. 📂
+            ### You can visit my [GitHub repository here.](https://github.com/tcchola/streamgene) 👾
+''')
