@@ -17,11 +17,41 @@ st.markdown("""
             ## Enter Sequence
 """)
 
-sequence_input = ">Name\n"
-sequence = st.text_area("Sequence Input", sequence_input, height = 250)
-sequence = sequence.splitlines() #split lines and view each one separately
-sequence = sequence[1:] #skip index 0 and go to beginning of sequence
-sequence = ''.join(sequence) #merge all lines
+def NucleotideCounter(seq):
+    d = dict([
+        ('A', seq.count('A')),
+        ('T', seq.count('T')),
+        ('C', seq.count('C')),
+        ('G', seq.count('G'))
+    ])
+    return d
+
+########### CHOOSE HOW YOU WANT TO INPUT THE SEQUENCE ###########
+enter_option = "Enter a sequence"
+upload_option = "Upload a file (FASTA)"
+
+option = st.radio("Choose method of submitting a DNA sequence:", [enter_option, upload_option])
+
+if option == enter_option:
+    sequence_input = ">Name\n"
+    sequence = st.text_area("DNA Sequence", sequence_input, height = 250)
+    sequence = sequence.splitlines()
+    sequence = sequence[1:]
+    sequence = ''.join(sequence)
+
+    NucleotideOutput = NucleotideCounter(sequence)
+
+elif option == upload_option:
+    uploaded_file = st.file_uploader("Choose a FASTA file", type=["fasta", "fa"], accept_multiple_files=False)
+
+    if uploaded_file is not None:
+        bytes_data = uploaded_file.getvalue()
+        stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+        string_data = stringio.read()
+    else:
+        st.warning('☝ Please choose a file!')
+    
+    NucleotideOutput = NucleotideCounter(string_data)
 
 with st.expander("What are nucleotides?"):
     st.info("""
@@ -32,16 +62,17 @@ with st.expander("What are nucleotides?"):
     """)
     st.image("./assets/nucleotides.png")
 
-def NucleotideCounter(seq):
-    d = dict([
-        ('A', seq.count('A')),
-        ('T', seq.count('T')),
-        ('C', seq.count('C')),
-        ('G', seq.count('G'))
-    ])
-    return d
-
-NucleotideOutput = NucleotideCounter(sequence)
+with st.expander("What is a FASTA file?"):
+    st.info("""
+            In bioinformatics and biochemistry, the FASTA format is a text-based format for representing either nucleotide 
+            sequences or amino acid (protein) sequences, in which nucleotides or amino acids are represented using single-letter codes.
+    """)
+    st.markdown("""
+                `>MCHU - Calmodulin - Human, rabbit, bovine, rat, and chicken
+                MADQLTEEQIAEFKEAFSLFDKDGDGTITTKELGTVMRSLGQNPTEAELQDMINEVDADGNGTID
+                FPEFLTMMARKMKDTDSEEEIREAFRVFDKDGNGYISAAELRHVMTNLGEKLTDEEVDEMIREA
+                DIDGDGQVNYEEFVQMMTAK*`
+    """)
 
 col1, col2 = st.columns(2)
 
@@ -51,6 +82,7 @@ with col1:
             ***
             ### 1. Data Sheet View
     """)
+
     table = pd.DataFrame.from_dict(NucleotideOutput, orient = "index")
     table = table.rename({0: "Amount"}, axis = "columns")
     table.reset_index(inplace = True)

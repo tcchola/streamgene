@@ -1,5 +1,4 @@
 # CREDIT: This app is inspired by https://huggingface.co/spaces/osanseviero/esmfold
-
 import streamlit as st
 from stmol import showmol
 import py3Dmol

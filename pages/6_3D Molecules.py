@@ -12,11 +12,16 @@ st.set_page_config(
 
 st.markdown("""
             # 3D Molecule View
-            ### Open an .XYZ file and view the atomic structure.  
-            Try oppening the files provided in the 'example_xyz_files' folder.  
-            You can find more chemical structures on [ChemSpider](https://www.chemspider.com/)
-            ***
+            ### Open an .XYZ file and view the atomic structure.
 """)
+st.markdown("""
+            You can find more chemical structures on [ChemSpider](https://www.chemspider.com/)
+""")
+
+with open('./example_xyz_files.zip', 'rb') as f:
+   st.download_button('Download example XYZ files', f, file_name='example_xyz_files.zip')
+
+st.write("***")
 
 ############ SIDEBAR SETTINGS ############
 with st.sidebar.expander("Parameters", expanded=True):

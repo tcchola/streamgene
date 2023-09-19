@@ -21,6 +21,8 @@ sequence = sequence.splitlines()
 sequence = sequence[1:]
 sequence = ''.join(sequence)
 
+st.write(f'Sequence Length: {len(sequence)}')
+
 with st.expander("What is a reverse complement strand?"):
     st.info("""
             In genetics, complementary DNA (cDNA) is DNA synthesized from a single-stranded RNA 
@@ -35,16 +37,11 @@ with st.expander("What is a reverse complement strand?"):
     st.image("./assets/reverse_strand.png")
 
 st.write("***")
-
-st.write(f'Sequence Length: {len(sequence)}')
-
 st.info("If you encounter the 'KeyError' it means either the sequence contains unknows nucleotides labeled as 'N' or you have entered an invalid sequence. ⚠️")
 
 reverse_strand = seq.NucleotideSequence(sequence).reverse().complement()
-
 st.markdown("""
             ## 3' - 5' DNA Strand
 """)
-            
 st.write(reverse_strand)
 

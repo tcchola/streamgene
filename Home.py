@@ -19,8 +19,8 @@ st.markdown('''
             # Q&A Section
 
             ## 1. How do I find the number of ACTGs? #️⃣
-            Take a DNA sequence from any online library and copy it into the input box on the 'Nucleotide Frequency' page  
-            to find out the exact number of nucleotides in your sequence.
+            Take a DNA sequence from any online library and copy it into the input box or open a .FASTA file  
+            on the 'Nucleotide Frequency' page to find out the exact number of nucleotides in your sequence.
 
             ## 2. How can I find my reverse complemet strand? ⛓️
             Head to the 'Second Strand' page and copy your 5' - 3' strand into the input box.  
@@ -35,8 +35,8 @@ st.markdown('''
             This will show you the corresponding RNA strand.
 
             ## 5. How can I know what proteins my strand can make? 💪
-            You can head over to the 'Translate to protein' page on the side menu and copy your RNA strand  
-            into the input box. You will be shown all possible proteins from the sequence.
+            You can head over to the 'Translate to protein' page on the side menu and copy your DNA strand  
+            into the input box or open a .FASTA file. The proteins will be displayed below.
 
             ## 6. Why am I getting inaccurate results? ❌
             The app automaticaly skips the first line of the input box (index 0). So when pasting your  
@@ -59,7 +59,7 @@ st.markdown('''
             ***
 
             # About the app 🧩
-            ### This app was made using the Python web framework 'streamlit'. 🐍
+            ### This app was made using the Python web framework [streamlit](https://streamlit.io/). 🐍
             ### This app is published under the MIT open source license. 📂
-            ### You can visit my [GitHub repository here.](https://github.com/tcchola/streamgene) 👾
+            ### You can visit the [GitHub repository here.](https://github.com/tcchola/streamgene) 👾
 ''')
