@@ -1,9 +1,6 @@
-streamlit
 pandas
 altair
-io
 biotite
-glob
 st_speckmol
 stmol
 py3Dmol
