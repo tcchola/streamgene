@@ -1,0 +1,7 @@
+pandas
+altair
+biotite
+st_speckmol
+stmol
+py3Dmol
+requests
