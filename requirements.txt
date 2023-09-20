@@ -4,7 +4,7 @@ biotite
 ipyspeck
 ipywidgets
 ipython_genutils
-st-speckmol
+st_speckmol
 stmol
 py3Dmol
 requests
