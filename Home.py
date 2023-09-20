@@ -47,12 +47,7 @@ st.markdown('''
                 GTCAGTCAGTCAGTCA...
             ```
 
-            ## 7. How can I visualize my proteins/other molecules? ⚛
-            After getting the proteins from your RNA look up if there is a chemical structure file of your protein online.  
-            The strucure should be a .xyz file. Open it in the '3D Molecules' page.  
-            You can adjust the 3D model's settings on the toolbar in the sidemenu.
-
-            ## 8. Can I predict how my protein will fold? ➰
+            ## 7. Can I predict how my protein will fold? ➰
             Yes. Head over to the 'Predict Protein Structure' page and input the protein you transcribed.  
             The app will generate a 3D model along with the accuracy score of the prediction.
 
