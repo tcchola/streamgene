@@ -1,7 +1,7 @@
 import streamlit as st
 import glob
 from io import StringIO
-from stmol import speck_plot
+from st_speckmol import speck_plot
 
 st.set_page_config(
     page_icon="⚛️",
