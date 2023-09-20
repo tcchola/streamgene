@@ -1,7 +1,9 @@
 pandas
 altair
 biotite
-st_speckmol
+ipyspeck
+ipywidgets
+st-speckmol
 stmol
 py3Dmol
 requests
