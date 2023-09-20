@@ -1,9 +1,0 @@
-pandas
-altair
-biotite
-ipyspeck
-ipywidgets
-st-speckmol
-stmol
-py3Dmol
-requests
