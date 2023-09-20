@@ -4,6 +4,8 @@ biotite
 ipyspeck
 ipywidgets
 st_speckmol
+st-speckmol
+glob
 stmol
 py3Dmol
 requests
