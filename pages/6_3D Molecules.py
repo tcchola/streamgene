@@ -1,7 +1,7 @@
 import streamlit as st
 import glob
 from io import StringIO
-#from streamlit.runtime.scriptrunner.script_run_context import get_script_run_ctx as get_report_ctx
+from streamlit.runtime.scriptrunner.script_run_context import get_script_run_ctx as get_report_ctx
 from st_speckmol import speck_plot
 
 st.set_page_config(
