@@ -1,8 +1,8 @@
 import streamlit as st
-import glob
 from io import StringIO
-from st_speckmol import speck_plot
-from streamlit.runtime.scriptrunner.script_run_context import get_script_run_ctx as get_report_ctx
+from stmol import showmol
+import py3Dmol
+import biotite.structure.io as bsio
 
 st.set_page_config(
     page_icon="⚛️",
@@ -10,42 +10,34 @@ st.set_page_config(
     layout="wide"
 )
 
+# stmol
+def render_mol(pdb):
+    pdbview = py3Dmol.view()
+    pdbview.addModel(pdb,'pdb')
+    pdbview.setStyle({'cartoon':{'color':'spectrum'}})
+    pdbview.setBackgroundColor('white')
+    pdbview.zoomTo()
+    pdbview.zoom(2, 800)
+    pdbview.spin(True)
+    showmol(pdbview, height=800, width=1000)
+
 st.markdown("""
             # 3D Molecule View
-            ### Open an .XYZ file and view the atomic structure.
-""")
-st.markdown("""
-            You can find more chemical structures on [ChemSpider](https://www.chemspider.com/)
+            ### Open a .PDB file and view the molecular structure.
+            You can find more structures on [RCSB PDB](https://www.rcsb.org/)
 """)
 
-with open('./example_xyz_files.zip', 'rb') as f:
-   st.download_button('Download example XYZ files', f, file_name='example_xyz_files.zip')
+with open('./example_pdb_files.zip', 'rb') as f:
+   st.download_button('Download example PDB files', f, file_name='example_pdb_files.zip')
 
 st.write("***")
 
-############ SIDEBAR SETTINGS ############
-with st.sidebar.expander("Parameters", expanded=True):
-    outl = st.checkbox('Outline', value=True)
-    bond = st.checkbox('Bond', value=True)
-    bond_scale = st.slider('BondScale', min_value=0.0, max_value=1.0, value=0.8)
-    brightness = st.slider('Brightness', min_value=0.0, max_value=1.0, value=0.4)
-    relativeAtomScale = st.slider('Relative atom scale', min_value=0.0, max_value=1.0, value=0.64)
-    atomShade  = st.slider('Atom shade', min_value=0.0, max_value=1.0, value=0.5)
+uploaded_file = st.file_uploader("Choose a PDB file", type=["pdb"], accept_multiple_files=False)
 
-############ SAVE SIDEBAR SETTINGS ############
-_PARAMETERS = {'outline': outl , 'bondScale': bond_scale,
-                'bonds': bond ,'atomShade' : atomShade,
-                'brightness': brightness, 'relativeAtomScale':relativeAtomScale,
-                }
-
-############ UPLOAD FIRST XYZ FILE ############
-uploaded_file = st.file_uploader("Choose a chemical structure file", type=["xyz"], accept_multiple_files=False)
 if uploaded_file is not None:
     bytes_data = uploaded_file.getvalue()
     stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
-    string_data = stringio.read()
+    protein_string = stringio.read()
+    render_mol(protein_string)
 else:
     st.warning('☝ Please choose a file!')
-
-############ RENDER THE STRUCTURE ############
-mol  = speck_plot(string_data, _PARAMETERS = _PARAMETERS, wbox_height="500px", wbox_width="800px")
