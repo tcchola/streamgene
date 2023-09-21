@@ -1,6 +1,6 @@
 # StreamGene Web Application
 ## An online gene analisys toolkit.
-## Made using the **Streamlit** Python framework for datadrivern web applications.
+## Made using the **Streamlit** Python framework for datadriven web applications.
 
 ### **Features:**
 
