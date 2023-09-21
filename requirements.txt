@@ -3,9 +3,7 @@ altair
 biotite
 ipyspeck
 ipywidgets
-st_speckmol
-st-speckmol
-glob
+ipython_genutils
 stmol
 py3Dmol
 requests
