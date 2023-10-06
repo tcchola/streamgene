@@ -1,7 +1,9 @@
+from io import StringIO
 import streamlit as st
 import pandas as pd
 import altair as alt
 from analisys.structures import *
+import biotite.sequence as seq
 
 st.set_page_config(
     page_icon="🧬",
@@ -9,15 +11,52 @@ st.set_page_config(
     layout="centered"
 )
 
+
 st.header("Calculate GC Content and AT/GC ratio of DNA Strand")
 
-sequence_input = ">Name\n"
-sequence = st.text_area("DNA Sequence", sequence_input, height = 250)
-sequence = sequence.splitlines()
-sequence = sequence[1:]
-sequence = ''.join(sequence)
+########### CHOOSE HOW YOU WANT TO INPUT THE SEQUENCE ###########
+enter_option = "Enter a sequence"
+upload_option = "Upload a file (FASTA)"
 
-st.write(f'Sequence Length: {len(sequence)}')
+option = st.radio("Choose method of submitting a DNA sequence:", [enter_option, upload_option])
+
+if option == enter_option:
+    sequence_input = ">Name\n"
+    sequence = st.text_area("DNA Sequence", sequence_input, height = 250)
+    sequence = sequence.splitlines()
+    sequence = sequence[1:]
+    sequence = ''.join(sequence)
+
+    st.write(f'Sequence Length: {len(sequence)}')
+    
+    if sequence:
+        gc_content = calculateGC(sequence)
+        atgc_ratio = calculateATGCratio(sequence)
+
+        st.header(f"GC: {gc_content}%")
+        st.header(f"AT/CG: {atgc_ratio}")
+    else:
+        st.warning("☝ Please enter a DNA sequence.")
+    
+elif option == upload_option:
+    uploaded_file = st.file_uploader("Choose a FASTA file", type=["fasta"], accept_multiple_files=False)
+
+    if uploaded_file is not None:
+        bytes_data = uploaded_file.getvalue()
+        stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+        string_data = stringio.read()
+        string_data = string_data.splitlines()
+        string_data = string_data[1:]
+        string_data = ''.join(string_data)
+
+        st.write(f'Sequence Length: {len(string_data)}')
+
+        st.header(f"GC: {calculateGC(string_data)}%")
+        st.header(f"AT/CG: {calculateATGCratio(string_data)}")
+
+    else:
+        st.warning('☝ Please choose a file.')
+    
 
 with st.expander("What is GC content?"):
     st.info("""
@@ -50,19 +89,15 @@ with st.expander("Its applications in systematics..."):
 
 st.write("***")
 
-st.info("If you encounter the 'ZeroDivisionError' it just means that the input filed is empty. ⚠️")
-
 col1, col2 = st.columns(2)
 
 with col1:
-    st.header(f"GC: {calculateGC(sequence)}%")
     st.markdown("#### Formula for GC content:")
     st.latex(r"""
-             \frac{G + C}{A + T + G + C} * 100\%
+             \frac{G + C}{A + T + G + C} * 100
     """)
 
 with col2:
-    st.header(f"AT/CG: {calculateATGCratio(sequence)}")
     st.markdown("#### Formula for AT/GC ratio:")
     st.latex(r"""
          \frac{A + T}{G + C}

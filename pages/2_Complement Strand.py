@@ -1,6 +1,5 @@
 from io import StringIO
 import streamlit as st
-from analisys.structures import *
 import biotite.sequence as seq
 
 st.set_page_config(
@@ -37,7 +36,6 @@ with st.expander("What is a reverse complement strand?"):
     st.image("./assets/reverse_strand.png")
 
 st.write("***")
-st.info("If you encounter the 'KeyError' it means either the sequence contains unknows nucleotides labeled as 'N' or you have entered an invalid sequence. ⚠️")
 
 reverse_strand = seq.NucleotideSequence(sequence).reverse().complement()
 st.markdown("""

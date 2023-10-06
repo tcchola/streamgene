@@ -2,7 +2,6 @@ from io import StringIO
 import streamlit as st
 import pandas as pd
 import altair as alt
-from analisys.structures import *
 import biotite.sequence as seq
 
 st.set_page_config(
@@ -13,12 +12,6 @@ st.set_page_config(
 
 ########## INPUT FILED ##########
 st.header("Enter DNA to Translate to protein")
-
-# sequence_input = ">Name\n"
-# sequence = st.text_area("DNA Sequence", sequence_input, height = 250)
-# sequence = sequence.splitlines()
-# sequence = sequence[1:]
-# sequence = ''.join(sequence)
 
 ########### CHOOSE HOW YOU WANT TO INPUT THE SEQUENCE ###########
 enter_option = "Enter a sequence"
@@ -33,9 +26,14 @@ if option == enter_option:
     sequence = sequence[1:]
     sequence = ''.join(sequence)
 
-    dna = seq.NucleotideSequence(sequence)
-    proteins, pos = dna.translate()
-    protein = dna.translate(complete=True)
+    proteins, pos = seq.NucleotideSequence(sequence).translate()
+    protein = seq.NucleotideSequence(sequence).translate(complete=True)
+
+    if sequence:
+        st.header("Protein:")
+        st.write(str(protein))
+    else:
+        st.warning("☝ Please enter a DNA sequence.")
 
 elif option == upload_option:
     uploaded_file = st.file_uploader("Choose a FASTA file", type=["fasta"], accept_multiple_files=False)
@@ -47,13 +45,17 @@ elif option == upload_option:
         string_data = string_data.splitlines()
         string_data = string_data[1:]
         string_data = ''.join(string_data)
+
+        proteins, pos = seq.NucleotideSequence(string_data).translate()
+        protein = seq.NucleotideSequence(string_data).translate(complete=True)
+
+        if string_data:
+            st.header("Protein:")
+            st.write(str(protein))
     else:
         st.warning('☝ Please choose a file!')
-    
-    dna = seq.NucleotideSequence(string_data)
-    proteins, pos = dna.translate()
-    protein = dna.translate(complete=True)
 
+st.write("***")
 
 with st.expander("What is a protein?"):
     st.info("""
@@ -67,12 +69,3 @@ with st.expander("What is a protein?"):
             that determines its activity.
     """)
     st.image("./assets/myoglobin.png", caption="Myoglobin protein")
-
-st.write("***")
-
-st.header("Protein")
-
-st.write(str(protein))
-
-st.info("If you encounter the 'ValueError' it means the genetic code does not include the rigth amount of nucleotides for translation. ⚠️")
-

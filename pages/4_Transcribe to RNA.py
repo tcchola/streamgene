@@ -11,16 +11,49 @@ st.set_page_config(
     layout="centered"
 )
 
-########## INPUT FILED ##########
-st.header("Enter DNA to be Treanscribed to RNA")
+########### CHOOSE HOW YOU WANT TO INPUT THE SEQUENCE ###########
+enter_option = "Enter a sequence"
+upload_option = "Upload a file (FASTA)"
 
-sequence_input = ">Name\n"
-sequence = st.text_area("DNA Sequence", sequence_input, height = 250)
-sequence = sequence.splitlines()
-sequence = sequence[1:]
-sequence = ''.join(sequence)
+option = st.radio("Choose method of submitting a DNA sequence:", [enter_option, upload_option])
 
-st.write(f'Sequence Length: {len(sequence)}')
+if option == enter_option:
+    sequence_input = ">Name\n"
+    sequence = st.text_area("DNA Sequence", sequence_input, height = 250)
+    sequence = sequence.splitlines()
+    sequence = sequence[1:]
+    sequence = ''.join(sequence)
+
+    st.write(f'Sequence Length: {len(sequence)}')
+    
+    if sequence:
+        st.header("Transcribed RNA:")
+        st.write(f'Sequence Length: {len(sequence)}')
+        st.write(transcribe(sequence))
+    else:
+        st.warning("☝ Please enter a DNA sequence.")
+    
+elif option == upload_option:
+    uploaded_file = st.file_uploader("Choose a FASTA file", type=["fasta"], accept_multiple_files=False)
+
+    if uploaded_file is not None:
+        bytes_data = uploaded_file.getvalue()
+        stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+        string_data = stringio.read()
+        string_data = string_data.splitlines()
+        string_data = string_data[1:]
+        string_data = ''.join(string_data)
+
+        st.write(f'Sequence Length: {len(string_data)}')
+
+        st.header("Transcribed RNA:")
+        st.write(f'Sequence Length: {len(string_data)}')
+        st.write(transcribe(string_data))
+
+    else:
+        st.warning('☝ Please choose a file.')
+
+st.write("***")
 
 with st.expander("What is RNA?"):
     st.info("""
@@ -56,13 +89,3 @@ with st.expander("Steps of transcription..."):
             6. If the cell has a nucleus, the RNA may be further processed. This may include polyadenylation, capping, and splicing.
             7. The RNA may remain in the nucleus or exit the cytoplasm through the nuclear pore complex.
     """)
-
-st.write("***")
-
-st.header("Transcribed RNA:")
-
-st.write(f'Sequence Length: {len(sequence)}')
-
-st.info("If you encounter the 'KeyError' it means either the sequence contains unknows nucleotides labeled as 'N' or you have entered an invalid sequence. ⚠️")
-
-st.write(transcribe(sequence))

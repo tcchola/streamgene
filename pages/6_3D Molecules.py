@@ -7,10 +7,10 @@ import biotite.structure.io as bsio
 st.set_page_config(
     page_icon="⚛️",
     page_title="StreamGene - 3D Molecules",
-    layout="wide"
+    layout="centered"
 )
 
-# stmol
+# stmol with no spin
 def render_mol(pdb):
     pdbview = py3Dmol.view()
     pdbview.addModel(pdb,'pdb')
@@ -18,7 +18,7 @@ def render_mol(pdb):
     pdbview.setBackgroundColor('white')
     pdbview.zoomTo()
     pdbview.zoom(2, 800)
-    pdbview.spin(True)
+    pdbview.spin(False)
     showmol(pdbview, height=800, width=1000)
 
 st.markdown("""
@@ -29,6 +29,18 @@ st.markdown("""
 
 with open('./example_pdb_files.zip', 'rb') as f:
    st.download_button('Download example PDB files', f, file_name='example_pdb_files.zip')
+
+spin_on = st.toggle('Turn on spin')
+if spin_on:
+    def render_mol(pdb):
+        pdbview = py3Dmol.view()
+        pdbview.addModel(pdb,'pdb')
+        pdbview.setStyle({'cartoon':{'color':'spectrum'}})
+        pdbview.setBackgroundColor('white')
+        pdbview.zoomTo()
+        pdbview.zoom(2, 800)
+        pdbview.spin(True)
+        showmol(pdbview, height=800, width=1000)
 
 st.write("***")
 

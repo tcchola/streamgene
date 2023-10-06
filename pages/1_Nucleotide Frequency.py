@@ -2,7 +2,6 @@ from io import StringIO
 import streamlit as st
 import pandas as pd
 import altair as alt
-from analisys.structures import *
 
 st.set_page_config(
     page_icon="🧬",
@@ -12,7 +11,7 @@ st.set_page_config(
 
 ########## INPUT FILED ##########
 st.markdown("""
-            # Count Aminoacids in a Sequence
+            # Count Nucleotides in a Sequence
             ***
             ## Enter Sequence
 """)
@@ -48,10 +47,11 @@ elif option == upload_option:
         bytes_data = uploaded_file.getvalue()
         stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
         string_data = stringio.read()
+
+        NucleotideOutput = NucleotideCounter(string_data)
+
     else:
         st.warning('☝ Please choose a file!')
-    
-    NucleotideOutput = NucleotideCounter(string_data)
 
 with st.expander("What are nucleotides?"):
     st.info("""
