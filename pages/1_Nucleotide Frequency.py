@@ -12,7 +12,6 @@ st.set_page_config(
 ########## INPUT FILED ##########
 st.markdown("""
             # Count Nucleotides in a Sequence
-            ***
             ## Enter Sequence
 """)
 

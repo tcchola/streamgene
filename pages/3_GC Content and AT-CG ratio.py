@@ -11,8 +11,9 @@ st.set_page_config(
     layout="centered"
 )
 
-
-st.header("Calculate GC Content and AT/GC ratio of DNA Strand")
+st.markdown("""
+            # Calculate GC Content and AT/GC ratio of a DNA strand
+""")
 
 ########### CHOOSE HOW YOU WANT TO INPUT THE SEQUENCE ###########
 enter_option = "Enter a sequence"

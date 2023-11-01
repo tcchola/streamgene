@@ -11,6 +11,10 @@ st.set_page_config(
     layout="centered"
 )
 
+st.markdown("""
+            # Transcribe DNA to mRNA
+""")
+
 ########### CHOOSE HOW YOU WANT TO INPUT THE SEQUENCE ###########
 enter_option = "Enter a sequence"
 upload_option = "Upload a file (FASTA)"

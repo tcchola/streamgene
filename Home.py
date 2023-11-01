@@ -12,7 +12,7 @@ st.set_page_config(
 ########## APP DESCRIPTION ##########
 st.markdown('''
             # Welcome to StreamGene 🦠
-            ### The all-in-one web application for analisys of genetic code.
+            ### The all-in-one web application for basic analisys of genetic code.
             
             ***
                     
@@ -63,5 +63,5 @@ st.markdown('''
             # About the app 🧩
             ### This app was made using the Python web framework [streamlit](https://streamlit.io/). 🐍
             ### This app is published under the MIT open source license. 📂
-            ### You can visit the [GitHub repository here.](https://github.com/tcchola/streamgene) 👾
+            ### You can visit the [GitHub repository here.](https://github.com/tcchola/streamgene) 🐙
 ''')

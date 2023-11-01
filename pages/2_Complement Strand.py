@@ -11,7 +11,6 @@ st.set_page_config(
 ########## INPUT FILED ##########
 st.markdown("""
             # Get DNA Complement Strand
-            ***
 """)
 
 sequence_input = ">Name\n"
@@ -34,8 +33,6 @@ with st.expander("What is a reverse complement strand?"):
             profiles in bulk tissue, single cells, or single nuclei in assays such as microarrays, qPCR, and RNA-seq.
     """)
     st.image("./assets/reverse_strand.png")
-
-st.write("***")
 
 reverse_strand = seq.NucleotideSequence(sequence).reverse().complement()
 st.markdown("""

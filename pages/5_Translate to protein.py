@@ -10,8 +10,9 @@ st.set_page_config(
     layout="centered"
 )
 
-########## INPUT FILED ##########
-st.header("Enter DNA to Translate to protein")
+st.markdown("""
+            # Translate DNA to Proteins
+""")
 
 ########### CHOOSE HOW YOU WANT TO INPUT THE SEQUENCE ###########
 enter_option = "Enter a sequence"
