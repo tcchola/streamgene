@@ -11,7 +11,7 @@ st.set_page_config(
 
 ########## APP DESCRIPTION ##########
 st.markdown("# Welcome to")
-st.image("./assets/sg-logo-01.png")
+st.image("./assets/sg-logo.png")
 st.markdown('''
             ### The all-in-one web application for basic analisys of genetic code.
             
