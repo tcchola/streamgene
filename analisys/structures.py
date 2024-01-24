@@ -4,6 +4,7 @@ import collections
 Nucleotides = ['A', 'C', 'G', 'T']
 DNA_ReverseComplement = {'A': 'T', 'T': 'A', 'G': 'C', 'C': 'G'}
 TranscribedSequence = {'A': 'A', 'C': 'C', 'G': 'G', 'T': 'U'}
+
 DNA_Codons = {
     # 'M' - START, '_' - STOP
     "GCT": "A", "GCC": "A", "GCA": "A", "GCG": "A",
